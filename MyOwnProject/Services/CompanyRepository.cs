@@ -10,6 +10,7 @@ namespace MyOwnProject.Services
         {
             _db = db;
         }
+
         public IEnumerable<Company> GetCompany()
         {
            return _db.Companies.ToList();
