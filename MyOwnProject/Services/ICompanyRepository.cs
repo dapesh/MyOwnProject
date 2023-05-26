@@ -4,6 +4,6 @@ namespace MyOwnProject.Services
 {
     public interface ICompanyRepository
     {
-        IEnumerable<Company> GetCompany();
+        public Task<IEnumerable<Company>> GetCompanies();
     }
 }
