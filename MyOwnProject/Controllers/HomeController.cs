@@ -30,7 +30,7 @@ namespace MyOwnProject.Controllers
             }
             return Ok();
         }
-        public async Task<ActionResult> DeleteCompany(int id)
+        public ActionResult DeleteCompany(int id)
         {
             var company = _db.Companies.Find(id);
             if(company == null)
