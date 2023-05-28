@@ -1,0 +1,16 @@
+﻿@model Company
+
+<h1>Add New Company</h1>
+
+@using (Html.BeginForm("InsertCompany", "Home", FormMethod.Post))
+{
+    <div class="form-group">
+        @Html.LabelFor(model => model.CompanyName)
+        @Html.TextBoxFor(model=>model.CompanyName, new{@class="form-control"})
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.CompanyAddress)
+        @Html.TextBoxFor(model => model.CompanyAddress, new { @class = "form-control" })
+    </div>
+    <input type="submit" value="InsertCompany" class="btn btn-primary" />
+}

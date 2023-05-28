@@ -1,13 +1,13 @@
 ﻿@model IEnumerable<Company>
 
 <h2>Company List</h2>
+<a href="@Url.Action("InsertCompany", "Home")" type="button" class="btn btn-outline-primary">Add New</a>
 
 <table class="table table-striped">
     <thead class="thead-dark">
         <tr>
             <th>Company Name</th>
             <th>Address</th>
-            <!-- Add more columns if needed -->
         </tr>
     </thead>
     <tbody>

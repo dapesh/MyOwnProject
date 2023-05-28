@@ -21,6 +21,7 @@ namespace MyOwnProject.Controllers
             //Console.WriteLine(company);
             return View(company);
         }
+        [HttpGet]
         public async Task<ActionResult> UpdateCompany(int id)
         {
             var company = _db.Companies.Find(id);
@@ -28,7 +29,19 @@ namespace MyOwnProject.Controllers
             {
                 return View("Error");
             }
-            return Ok();
+            return View(company);
+        }
+        [HttpPost]
+        public async Task<ActionResult> UpdateCompany(Company updatedCompany)
+        {
+
+            if (ModelState.IsValid)
+            {
+                _db.Companies.Update(updatedCompany);
+                _db.SaveChanges();
+                return RedirectToAction("Index", "Home");
+            }
+            return View(updatedCompany);
         }
         public ActionResult DeleteCompany(int id)
         {
@@ -40,6 +53,22 @@ namespace MyOwnProject.Controllers
             _db.Companies.Remove(company);
             _db.SaveChanges();
             return RedirectToAction("Index");
+        }
+        [HttpGet]
+        public ActionResult InsertCompany()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult InsertCompany(Company insertCompany)
+        {
+            if (ModelState.IsValid)
+            {
+                _db.Companies.Add(insertCompany);
+                _db.SaveChanges();
+                return RedirectToAction("Index", "Home");
+            }
+            return View(insertCompany);
         }
     }
 }
