@@ -12,7 +12,7 @@ using MyOwnProject.Data;
 namespace MyOwnProject.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230528045432_initialMigrationinfi")]
+    [Migration("20230528093355_initialMigrationinfi")]
     partial class initialMigrationinfi
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -37,7 +37,6 @@ namespace MyOwnProject.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<byte[]>("CompanyLogo")
-                        .IsRequired()
                         .HasColumnType("varbinary(max)");
 
                     b.Property<string>("CompanyName")
@@ -47,6 +46,48 @@ namespace MyOwnProject.Migrations
                     b.HasKey("CompanyId");
 
                     b.ToTable("Companies");
+                });
+
+            modelBuilder.Entity("MyOwnProject.Models.Department", b =>
+                {
+                    b.Property<int>("DepartmentId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("DepartmentId"), 1L, 1);
+
+                    b.Property<int>("CompanyId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("DepartmentAddress")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("DepartmentName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("DepartmentId");
+
+                    b.HasIndex("CompanyId");
+
+                    b.ToTable("Departments");
+                });
+
+            modelBuilder.Entity("MyOwnProject.Models.Department", b =>
+                {
+                    b.HasOne("MyOwnProject.Models.Company", "Company")
+                        .WithMany("Departments")
+                        .HasForeignKey("CompanyId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Company");
+                });
+
+            modelBuilder.Entity("MyOwnProject.Models.Company", b =>
+                {
+                    b.Navigation("Departments");
                 });
 #pragma warning restore 612, 618
         }
