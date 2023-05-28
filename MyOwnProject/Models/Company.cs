@@ -7,7 +7,7 @@ namespace MyOwnProject.Models
         public int CompanyId { get; set; }
         public string CompanyName { get; set; }
         public string CompanyAddress { get; set; }
-        public byte[] ? CompanyLogo { get; set; }
-        public IEnumerable<Department> Departments { get; set; }
+        public string ? CompanyLogo { get; set; }
+        public IEnumerable<Department> ? Departments { get; set; }
     }
 }
