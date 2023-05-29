@@ -1,8 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using MyOwnProject.Data;
 using MyOwnProject.Models;
 using MyOwnProject.Services;
+using System.ComponentModel.Design;
 
 namespace MyOwnProject.Controllers
 {
@@ -15,9 +17,10 @@ namespace MyOwnProject.Controllers
             _departmentRepository = departmentRepository;
             _db = db;
         }
-        public async Task<ActionResult> Index()
+        public async Task<ActionResult> Index(int companyid)
         {
-            var department =await _departmentRepository.GetDepartments();
+            ViewBag.companyid =companyid;
+            var department =await _departmentRepository.GetDepartments(companyid);
             return View(department);
         }
         [HttpGet]
@@ -56,9 +59,20 @@ namespace MyOwnProject.Controllers
             return RedirectToAction("Index");
         }
         [HttpGet]
-        public ActionResult InsertDepartment()
+        public ActionResult InsertDepartment(int companyid)
         {
-            return View();
+            Department dept = new Department();
+            dept.CompanyId = companyid;
+            //var companies = _db.Companies.ToList();
+            //ViewBag.Companies = new SelectList(companies, "CompanyId", "CompanyName");
+            //var departments = _db.Departments.ToList();
+            //var departmentSelectList = departments.Select(d => new SelectListItem
+            //{
+            //    Value = d.DepartmentId.ToString(),
+            //    Text = d.DepartmentName
+            //});
+            //ViewBag.DepartmentId = departmentSelectList;
+            return View(dept);
         }
         [HttpPost]
         public ActionResult InsertDepartment(Department insertDepartment)
@@ -69,7 +83,7 @@ namespace MyOwnProject.Controllers
                 {
                     _db.Departments.Add(insertDepartment);
                     _db.SaveChanges();
-                    return RedirectToAction("Index", "Department");
+                    return RedirectToAction("Index", "Department",new { companyid =insertDepartment.CompanyId});
                 }
             }
             catch (Exception ex)
@@ -82,5 +96,7 @@ namespace MyOwnProject.Controllers
             }       
             return View(insertDepartment);
         }
+
+        
     }
 }

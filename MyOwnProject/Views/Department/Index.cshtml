@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<Department>
 <h1>Department List</h1>
-<a href="@Url.Action("InsertDepartment", "Department")" type="button" class="btn btn-outline-primary">Add New</a>
-
+@Html.ActionLink("Department", "InsertDepartment", "Department", new {Companyid=@ViewBag.companyid}, new { @class = "btn btn-outline-primary", style = "margin-right: 10px;" })
+                        
 <table class="table table-striped">
     <thead class="thead-dark">
         <tr>

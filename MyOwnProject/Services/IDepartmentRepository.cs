@@ -4,6 +4,6 @@ namespace MyOwnProject.Services
 {
     public interface IDepartmentRepository
     {
-        public Task<IEnumerable<Department>> GetDepartments();
+        public Task<IEnumerable<Department>> GetDepartments(int id);
     }
 }
