@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using MyOwnProject.Data;
 using MyOwnProject.Models;
 using MyOwnProject.Services;
@@ -22,19 +23,22 @@ namespace MyOwnProject.Controllers
         [HttpGet]
         public async Task<ActionResult> UpdateDepartment(int id)
         {
-            var company = _db.Departments.Find(id);
-            if (company == null)
+            var department = _db.Departments.Find(id);
+            if (department == null)
             {
                 return View("Error");
             }
-            return View(company);
+            return View(department);
         }
         [HttpPost]
         public async Task<ActionResult> UpdateDepartment(Department updatedDepartment)
         {
             if (ModelState.IsValid)
             {
-                _db.Departments.Update(updatedDepartment);
+                var oldDepartment = await _db.Departments.FirstOrDefaultAsync(x=>x.DepartmentId == updatedDepartment.DepartmentId);
+                oldDepartment.DepartmentName = updatedDepartment.DepartmentName;
+                oldDepartment.DepartmentAddress = updatedDepartment.DepartmentAddress;
+                _db.Departments.Update(oldDepartment);
                 _db.SaveChanges();
                 return RedirectToAction("Index", "Department");
             }
@@ -59,13 +63,23 @@ namespace MyOwnProject.Controllers
         [HttpPost]
         public ActionResult InsertDepartment(Department insertDepartment)
         {
-            if (ModelState.IsValid)
+            try
             {
-                //insertDepartment.CompanyId = 4;
-                _db.Departments.Add(insertDepartment);
-                _db.SaveChanges();
-                return RedirectToAction("Index", "Department");
+                if (ModelState.IsValid)
+                {
+                    _db.Departments.Add(insertDepartment);
+                    _db.SaveChanges();
+                    return RedirectToAction("Index", "Department");
+                }
             }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error occurred while saving the entity changes: " + ex.Message);
+                if (ex.InnerException != null)
+                {
+                    Console.WriteLine("Inner exception: " + ex.InnerException.Message);
+                }
+            }       
             return View(insertDepartment);
         }
     }

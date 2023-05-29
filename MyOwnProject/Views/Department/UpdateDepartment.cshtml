@@ -4,7 +4,8 @@
 
 @using (Html.BeginForm("UpdateDepartment", "Department", FormMethod.Post))
 {
-    @Html.HiddenFor(m => m.CompanyId)
+    @Html.HiddenFor(m => m.DepartmentId)
+    @*@html.hiddenfor(m => m.companyid)*@
     @Html.AntiForgeryToken()
     <div class="form-group">
         @Html.LabelFor(model => model.DepartmentName)
@@ -16,5 +17,5 @@
         @Html.TextBoxFor(model => model.DepartmentAddress, new { @class = "form-control" })
     </div>
 
-    <input type="submit" value="Update" class="btn btn-primary" />
+    <input type="submit" value="UpdateDepartment" class="btn btn-primary" />
 }
