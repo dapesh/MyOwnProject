@@ -4,6 +4,7 @@
 
 @using (Html.BeginForm("UpdateDepartment", "Department", FormMethod.Post))
 {
+    @Html.HiddenFor(m => m.CompanyId)
     @Html.HiddenFor(m => m.DepartmentId)
     @*@html.hiddenfor(m => m.companyid)*@
     @Html.AntiForgeryToken()

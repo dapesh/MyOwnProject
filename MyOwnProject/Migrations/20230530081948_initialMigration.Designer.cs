@@ -11,7 +11,7 @@ using MyOwnProject.Data;
 namespace MyOwnProject.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230528142554_initialMigration")]
+    [Migration("20230530081948_initialMigration")]
     partial class initialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -73,6 +73,28 @@ namespace MyOwnProject.Migrations
                     b.ToTable("Departments");
                 });
 
+            modelBuilder.Entity("MyOwnProject.Models.Employee", b =>
+                {
+                    b.Property<int>("EmployeeId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("EmployeeId"), 1L, 1);
+
+                    b.Property<int>("DepartmentId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("EmployeeName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("EmployeeId");
+
+                    b.HasIndex("DepartmentId");
+
+                    b.ToTable("Employees");
+                });
+
             modelBuilder.Entity("MyOwnProject.Models.Department", b =>
                 {
                     b.HasOne("MyOwnProject.Models.Company", "Company")
@@ -84,9 +106,25 @@ namespace MyOwnProject.Migrations
                     b.Navigation("Company");
                 });
 
+            modelBuilder.Entity("MyOwnProject.Models.Employee", b =>
+                {
+                    b.HasOne("MyOwnProject.Models.Department", "Department")
+                        .WithMany("Employees")
+                        .HasForeignKey("DepartmentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Department");
+                });
+
             modelBuilder.Entity("MyOwnProject.Models.Company", b =>
                 {
                     b.Navigation("Departments");
+                });
+
+            modelBuilder.Entity("MyOwnProject.Models.Department", b =>
+                {
+                    b.Navigation("Employees");
                 });
 #pragma warning restore 612, 618
         }
