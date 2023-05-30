@@ -1,0 +1,16 @@
+﻿@model Employee
+
+<h2>Update Employee</h2>
+
+@using (Html.BeginForm("UpdateEmployee", "Employee", FormMethod.Post))
+{
+    @Html.HiddenFor(m => m.EmployeeId)
+    @Html.HiddenFor(m => m.DepartmentId)
+    @*@html.hiddenfor(m => m.companyid)*@
+    @Html.AntiForgeryToken()
+    <div class="form-group">
+        @Html.LabelFor(model => model.EmployeeName)
+        @Html.TextBoxFor(model => model.EmployeeName, new { @class = "form-control" })
+    </div>
+    <input type="submit" value="UpdateEmployee" class="btn btn-primary" />
+}

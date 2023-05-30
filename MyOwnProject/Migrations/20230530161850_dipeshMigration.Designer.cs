@@ -11,8 +11,8 @@ using MyOwnProject.Data;
 namespace MyOwnProject.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230530081948_initialMigration")]
-    partial class initialMigration
+    [Migration("20230530161850_dipeshMigration")]
+    partial class dipeshMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

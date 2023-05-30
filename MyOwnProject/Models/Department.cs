@@ -7,6 +7,6 @@
         public string DepartmentAddress { get; set; }
         public int CompanyId { get; set; }
         public Company ? Company { get; set; }
-        public List<Employee> Employees { get; set; }
+        public List<Employee>? Employees { get; set; }
     }
 }

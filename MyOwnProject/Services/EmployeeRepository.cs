@@ -14,13 +14,15 @@ namespace MyOwnProject.Services
             _configuration = configuration;
             _db = db;
         }
-        public async Task<IEnumerable<Employee>> GetEmployees()
+        public async Task<IEnumerable<Employee>> GetEmployees(int departmentId)
         {
             string connectionString = _configuration.GetConnectionString("DefaultConnection");
-            var query = "Select * from Employees";
+            var query = "Select * from Employees where departmentId=@departmentId";
+            DynamicParameters parameters = new DynamicParameters();
+            parameters.Add("@departmentId", departmentId);
             using (var connection = new SqlConnection(connectionString))
             {
-                var employees = await connection.QueryAsync<Employee>(query);
+                var employees = await connection.QueryAsync<Employee>(query,parameters);
                 return employees.ToList();
             }
         }
