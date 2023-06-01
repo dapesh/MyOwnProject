@@ -1,0 +1,20 @@
+﻿
+@model List<Document>
+    <table class="table table-striped">
+        <thead class="thead-dark">
+            <tr>
+                <th>Title</th>
+                <th>Description</th>
+            </tr>
+        </thead>
+        <tbody>
+
+            @foreach (var docs in Model)
+            {
+                <tr>
+                    <td>@docs.Title</td>
+                    <td><a href="@Url.Action("DocumentPost", "Document", new { id = docs.DocumentId })">@docs.Description</a></td>
+                </tr>
+            }
+        </tbody>
+    </table>

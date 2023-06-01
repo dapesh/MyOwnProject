@@ -71,6 +71,27 @@ namespace MyOwnProject.Migrations
                     b.ToTable("Departments");
                 });
 
+            modelBuilder.Entity("MyOwnProject.Models.Document", b =>
+                {
+                    b.Property<int>("DocumentId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("DocumentId"), 1L, 1);
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("DocumentId");
+
+                    b.ToTable("Documents");
+                });
+
             modelBuilder.Entity("MyOwnProject.Models.Employee", b =>
                 {
                     b.Property<int>("EmployeeId")

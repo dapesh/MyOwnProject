@@ -26,5 +26,6 @@ namespace MyOwnProject.Data
         public DbSet <Company> Companies { get; set; }
         public DbSet<Department> Departments { get; set; }
         public DbSet<Employee> Employees { get; set; }
+        public DbSet<Document> Documents { get; set; }
     }
 }

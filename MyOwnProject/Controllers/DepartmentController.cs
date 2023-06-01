@@ -19,7 +19,6 @@ namespace MyOwnProject.Controllers
         }
         public async Task<ActionResult> Index(int companyid)
         {
-           
             ViewBag.companyid =companyid;
             var department =await _departmentRepository.GetDepartments(companyid);
             return View(department);

@@ -1,0 +1,57 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+@model Document
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Your Page Title</title>
+    <script src="~/lib/jquery/dist//jquery.js"></script>
+    <script src="~/js/ckeditor/ckeditor.js"></script>
+</head>
+<body>
+    <div class="card" style="padding: 10px 50px 50px 50px">
+        <div class="Document" id="ckeditor" method="post">
+            <h1>@Model.Title</h1>
+                <p>@Model.Description</p>
+        </div>
+    </div>
+    <button id="submitBtn">Submit</button>
+    <script>
+        $(document).ready(function () {
+            debugger;
+            CKEDITOR.replace('ckeditor');
+        });
+
+         $('#submitBtn').on('click', function (e) {
+             debugger
+            e.preventDefault(); // Prevent the default form submission
+
+            // Get the form data
+            var formData = {
+                title: $("#ckeditor h1").text(),
+                description: $("#ckeditor p").text()
+            };
+            console.log(formData);
+            // Send the POST request
+            $.ajax({
+                url: '/Document/DocumentPost',
+                type: 'POST',
+                data: formData,
+                success: function (response) {
+                    
+                    console.log('Post request successful.');
+                },
+                error: function (xhr, status, error) {
+                    // Handle the error response
+                    console.error('An error occurred:', error);
+                }
+            });
+        });
+    </script>
+</body>
+</html>

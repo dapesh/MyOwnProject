@@ -31,3 +31,44 @@
     </tbody>
 </table>
 
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Your Page Title</title>
+    <script src="~/lib/jquery/dist//jquery.js"></script>
+    <script src="~/js/ckeditor/ckeditor.js"></script>
+</head>
+<body>
+    <div class="card" style="padding: 10px 50px 50px 50px">
+        <div class="DepartmentName" id="ckeditor" method="post">
+            @*<p>Hello from ckeditor</p>*@
+            @foreach(var dept in Model){
+                <tr>
+                    <td>@dept.DepartmentName</td>
+                </tr>
+            }
+        </div>
+    </div>
+
+    <script>
+        $(document).ready(function () {
+            CKEDITOR.replace('ckeditor');
+        });
+    </script>
+</body>
+</html>
+
+@*<div class="card" style="padding:10px 50px 50px 50px">
+    <div class="DepartmentName" id="ckeditor" method="post">
+        <p>Hello from ckeditor</p>
+    </div>
+</div>
+
+<script src = "~/lib/jquery/dist//jquery.js"></script>
+<script src = "~/js/ckeditor/ckeditor.js"></script>
+<script>
+    $(document).ready(function () {
+        CKEDITOR.replace('#ckeditor');
+    })
+</script>
+*@
