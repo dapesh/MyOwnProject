@@ -27,13 +27,6 @@ namespace MyOwnProject.Controllers
         [HttpGet]
         public async Task<ActionResult> UpdateDepartment(int id)
         {
-            if (id == 0)
-            {
-                //var companyLst = _db.Companies.ToList();
-                List<Company> companyList = _db.Companies.ToList();
-                ViewBag.CompantList = companyList;
-                return View();
-            }
             var department = _db.Departments.Find(id);
             if (department == null)
             {
@@ -72,9 +65,19 @@ namespace MyOwnProject.Controllers
         [HttpGet]
         public ActionResult InsertDepartment(int companyid)
         {
-            Department dept = new Department();
-            dept.CompanyId = companyid;
-            return View(dept);
+            if (companyid == 0)
+            {
+                //var companyLst = _db.Companies.ToList();
+                List<Company> companyList = _db.Companies.ToList();
+                ViewBag.CompantList = companyList;
+                return View();
+            }
+            else
+            {
+                Department dept = new Department();
+                dept.CompanyId = companyid;
+                return View(dept);
+            }
         }
         [HttpPost]
         public ActionResult InsertDepartment(Department insertDepartment)

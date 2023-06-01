@@ -1,16 +1,5 @@
 ﻿@model Department
-
-@{
-    var companyList = ViewBag.CompantList as List<Company>;
-}
-
 <h2>Update Department</h2>
-
-@using (Html.BeginForm("ActionName", "ControllerName", FormMethod.Post))
-{
-    @Html.DropDownList("SelectedItemId", new SelectList(companyList, "CompanyId", "CompanyName"), "Select Company")
-}
-
 @using (Html.BeginForm("UpdateDepartment", "Department", FormMethod.Post))
 {
     @Html.HiddenFor(m => m.CompanyId)
