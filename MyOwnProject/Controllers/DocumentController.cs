@@ -27,9 +27,20 @@ namespace MyOwnProject.Controllers
             return View(docs);
         }
         [HttpPost]
-        public JsonResult DocumentPost(string title,string description)
+        public JsonResult DocumentPost(string title,string description,int DocumentId)
         {
-            return Json("");
+            var document = _db.Documents.Find(DocumentId);
+            if (document != null)
+            {
+                document.Title = title;
+                document.Description = description;
+                _db.SaveChanges();
+                return Json(new { success = true, message = "Document updated successfully." });
+            }
+            else
+            {
+                return Json(new { success = false, message = "Document not found." });
+            }
         }
     }
 }

@@ -24,6 +24,12 @@ namespace MyOwnProject.Controllers
         [HttpGet]
         public ActionResult InsertEmployee(int departmentId)
         {
+            if(departmentId == 0)
+            {
+                List<Department> departmentList = _db.Departments.ToList();
+                ViewBag.DepartmentList = departmentList;
+                return View();
+            }
             Employee emp = new Employee();
             emp.DepartmentId = departmentId;
             return View(emp);

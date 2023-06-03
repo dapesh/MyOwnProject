@@ -1,15 +1,35 @@
 ﻿@model Employee
+
+@{
+    var departmentList = ViewBag.DepartmentList;
+}
+
 <h1>Add New Employee</h1>
 
-@using (Html.BeginForm("InsertEmployee", "Employee", FormMethod.Post))
-{
-    @Html.HiddenFor(x=>x.DepartmentId)
-    @Html.HiddenFor(x=>x.EmployeeId)
-    <div class="form-group">
-        @Html.LabelFor(model => model.EmployeeName)
-        @Html.TextBoxFor(model=>model.EmployeeName, new{@class="form-control"})
-    </div>
-    <div class="form-group">
-    </div>
-    <input type="submit" value="InsertEmployee" class="btn btn-primary" />
+@if(departmentList ==null){
+    @using (Html.BeginForm("InsertEmployee", "Employee", FormMethod.Post))
+    {
+        @Html.HiddenFor(x=>x.DepartmentId)
+        @Html.HiddenFor(x=>x.EmployeeId)
+        <div class="form-group">
+            @Html.LabelFor(model => model.EmployeeName)
+            @Html.TextBoxFor(model=>model.EmployeeName, new{@class="form-control"})
+        </div>
+        <div class="form-group">
+        </div>
+        <input type="submit" value="InsertEmployee" class="btn btn-primary" />
+    }   
+}
+else{
+    @using (Html.BeginForm("InsertEmployee", "Employee", FormMethod.Post))
+    {
+        @Html.DropDownList("DepartmentId", new SelectList(departmentList, "DepartmentId", "DepartmentName"), "Select Department")
+        <div class="form-group">
+            @Html.LabelFor(model => model.EmployeeName)
+            @Html.TextBoxFor(model=>model.EmployeeName, new{@class="form-control"})
+        </div>
+        <div class="form-group">
+        </div>
+        <input type="submit" value="InsertEmployee" class="btn btn-primary" />
+    }
 }

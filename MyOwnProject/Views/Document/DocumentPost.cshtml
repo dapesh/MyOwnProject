@@ -16,6 +16,7 @@
 <body>
     <div class="card" style="padding: 10px 50px 50px 50px">
         <div class="Document" id="ckeditor" method="post">
+            @Html.HiddenFor(model=>model.DocumentId)
             <h1>@Model.Title</h1>
                 <p>@Model.Description</p>
         </div>
@@ -31,10 +32,14 @@
              debugger
             e.preventDefault(); // Prevent the default form submission
 
+            var editor = CKEDITOR.instances.ckeditor;
+            var updatedContent = editor.getData();
+            console.log(updatedContent);
             // Get the form data
             var formData = {
                 title: $("#ckeditor h1").text(),
-                description: $("#ckeditor p").text()
+                description: updatedContent,
+                documentId: $("#DocumentId").val()
             };
             console.log(formData);
             // Send the POST request
