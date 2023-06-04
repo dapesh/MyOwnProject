@@ -2,7 +2,7 @@
 
 <h1>Add New Company</h1>
 
-@using (Html.BeginForm("InsertCompany", "Home", FormMethod.Post))
+@using (Html.BeginForm("InsertCompany", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     <div class="form-group">
         @Html.LabelFor(model => model.CompanyName)
@@ -12,5 +12,17 @@
         @Html.LabelFor(model => model.CompanyAddress)
         @Html.TextBoxFor(model => model.CompanyAddress, new { @class = "form-control" })
     </div>
+    <div class="form-group">
+        @Html.TextBoxFor(model => model.CompanyName)
+        <input type="file" name="ImageFile" />
+    </div>
     <input type="submit" value="InsertCompany" class="btn btn-primary" />
 }
+@*
+@using (Html.BeginForm("InsertCompany", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.TextBoxFor(model => model.CompanyName)
+    <input type="file" name="ImageFile" />
+    <input type="submit" value="InsertCompany" />
+}*@
+
